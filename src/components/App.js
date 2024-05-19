@@ -1,4 +1,3 @@
-// App.js
 import { Layout } from './Layout/Layout';
 import { AppBar } from './AppBar/AppBar';
 import { ContactForm } from './ContactForm/ContactForm';
