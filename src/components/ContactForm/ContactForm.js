@@ -33,7 +33,7 @@ export const ContactForm = () => {
 
   return (
     <div>
-      <h2 className={css.title}>Adding Contacts</h2>
+      <h2 className={css.title}>Add Contacts</h2>
       <form className={css.form} onSubmit={handleSubmit}>
         {error && <p className={css.error}>{error}</p>}
         <input

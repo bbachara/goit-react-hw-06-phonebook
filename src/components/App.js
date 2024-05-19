@@ -9,10 +9,9 @@ export const App = () => {
   return (
     <Layout>
       <AppBar />
-
       <SearchBar />
-      <ContactList />
       <ContactForm />
+      <ContactList />
     </Layout>
   );
 };
