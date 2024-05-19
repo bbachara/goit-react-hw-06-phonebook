@@ -1,9 +1,10 @@
-import clsx from "clsx";
-import css from "./Button.module.css";
+import PropTypes from 'prop-types';
+import clsx from 'clsx';
+import css from './Button.module.css';
 
 export const Button = ({
   selected = false,
-  type = "button",
+  type = 'button',
   children,
   ...otherProps
 }) => {
@@ -18,4 +19,10 @@ export const Button = ({
       {children}
     </button>
   );
+};
+
+Button.propTypes = {
+  selected: PropTypes.bool,
+  type: PropTypes.oneOf(['button', 'submit', 'reset']),
+  children: PropTypes.node.isRequired,
 };

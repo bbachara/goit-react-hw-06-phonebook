@@ -1,7 +1,8 @@
-import { useDispatch } from "react-redux";
-import { MdClose } from "react-icons/md";
-import { deleteContact } from "../../redux/actions";
-import css from "./Contact.module.css";
+import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
+import { MdClose } from 'react-icons/md';
+import { deleteContact } from '../../redux/actions';
+import css from './Contact.module.css';
 
 export const Contact = ({ contact }) => {
   const dispatch = useDispatch();
@@ -18,4 +19,12 @@ export const Contact = ({ contact }) => {
       </button>
     </div>
   );
+};
+
+Contact.propTypes = {
+  contact: PropTypes.shape({
+    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+    name: PropTypes.string.isRequired,
+    phone: PropTypes.string.isRequired,
+  }).isRequired,
 };

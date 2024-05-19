@@ -1,36 +1,34 @@
-import { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { Button } from "../Button/Button";
-import { addContact } from "../../redux/actions";
-import { getContacts } from "../../redux/selectors";
-import css from "./ContactForm.module.css";
+import { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { Button } from '../Button/Button';
+import { addContact } from '../../redux/actions';
+import { getContacts } from '../../redux/selectors';
+import css from './ContactForm.module.css';
 
 export const ContactForm = () => {
   const dispatch = useDispatch();
   const contacts = useSelector(getContacts);
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
 
-  // Write to localStorage when contacts state updates
   useEffect(() => {
-    localStorage.setItem("contacts", JSON.stringify(contacts));
+    localStorage.setItem('contacts', JSON.stringify(contacts));
   }, [contacts]);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = event => {
     event.preventDefault();
     const form = event.target;
     const name = form.elements.name.value;
     const phone = form.elements.phone.value;
 
-    // Check if the name already exists
-    const existingContact = contacts.find((contact) => contact.name === name);
+    const existingContact = contacts.find(contact => contact.name === name);
     if (existingContact) {
-      window.alert("Contact with this name already exists."); // Display alert
+      window.alert('Contact with this name already exists.');
       return;
     }
 
     dispatch(addContact({ name, phone }));
     form.reset();
-    setError("");
+    setError('');
   };
 
   return (
@@ -43,7 +41,7 @@ export const ContactForm = () => {
           type="text"
           name="name"
           pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-          title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan."
+          title="Name may contain only letters, apostrophe, dash and spaces."
           placeholder="Enter contact name..."
           required
         />
@@ -51,9 +49,9 @@ export const ContactForm = () => {
           className={css.field}
           type="tel"
           name="phone"
-          pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
-          title="Phone number must be in the format: XXX-XXX-XXXX"
-          placeholder="Enter phone number (e.g., XXX-XXX-XXXX)..."
+          pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+          title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
+          placeholder="Enter phone number..."
           required
         />
         <Button type="submit">Add contact</Button>

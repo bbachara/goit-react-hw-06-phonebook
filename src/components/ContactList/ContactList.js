@@ -1,28 +1,28 @@
-import { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { Contact } from "../Contact/Contact";
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { Contact } from '../Contact/Contact';
 import {
   getContacts,
   getStatusFilter,
   getSearchQuery,
-} from "../../redux/selectors";
-import css from "./ContactList.module.css";
-import { statusFilters } from "../../redux/constants";
+} from '../../redux/selectors';
+import css from './ContactList.module.css';
+import { statusFilters } from '../../redux/constants';
 
 const getVisibleContacts = (contacts, statusFilter, searchQuery) => {
   let filteredContacts = contacts;
 
   if (searchQuery) {
-    filteredContacts = filteredContacts.filter((contact) =>
+    filteredContacts = filteredContacts.filter(contact =>
       contact.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
   }
 
   switch (statusFilter) {
     case statusFilters.active:
-      return filteredContacts.filter((contact) => !contact.completed);
+      return filteredContacts.filter(contact => !contact.completed);
     case statusFilters.completed:
-      return filteredContacts.filter((contact) => contact.completed);
+      return filteredContacts.filter(contact => contact.completed);
     default:
       return filteredContacts;
   }
@@ -39,14 +39,12 @@ export const ContactList = () => {
     searchQuery
   );
 
-  // Read from localStorage when component mounts
   useEffect(() => {
-    const storedContacts = localStorage.getItem("contacts");
+    const storedContacts = localStorage.getItem('contacts');
     if (storedContacts) {
-      // Parse storedContacts to JSON
       const parsedContacts = JSON.parse(storedContacts);
-      // Dispatch action to load contacts
-      dispatch({ type: "contacts/loadContacts", payload: parsedContacts });
+
+      dispatch({ type: 'contacts/loadContacts', payload: parsedContacts });
     }
   }, [dispatch]);
 
@@ -54,7 +52,7 @@ export const ContactList = () => {
     <div>
       <h2 className={css.title}>List of Contacts</h2>
       <ul className={css.list}>
-        {visibleContacts.map((contact) => (
+        {visibleContacts.map(contact => (
           <li className={css.listItem} key={contact.id}>
             <Contact contact={contact} />
           </li>

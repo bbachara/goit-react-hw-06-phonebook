@@ -1,12 +1,11 @@
-// SearchBar.js
-import { useDispatch } from "react-redux";
-import { setSearchQuery } from "../../redux/actions";
-import css from "./SearchBar.module.css";
+import { useDispatch } from 'react-redux';
+import { setSearchQuery } from '../../redux/actions';
+import css from './SearchBar.module.css';
 
 export const SearchBar = () => {
   const dispatch = useDispatch();
 
-  const handleSearch = (event) => {
+  const handleSearch = event => {
     dispatch(setSearchQuery(event.target.value));
   };
 
